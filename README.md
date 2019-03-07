@@ -1,5 +1,5 @@
 Notes:
-  *The task is in two parts one part is (Company_Billings) which is the API web service which the second part consume it and it is developed in LARAVEL
+  *The project is in two parts one part is (Company_Billings) which is the API web service which the second part consume it and it is developed in LARAVEL
 
 
   *the second part called (ClientApp) which is the front side which consume the first part and developed in REACT.JS,
@@ -32,7 +32,7 @@ Notes:
 
       -open the browser and go to (localhost:8080)
 
-  * Technologies i make the task with:
+  * Technologies i make the project with:
 
      PHP, LARAVEL, REACT.JS ,REDUX
 
