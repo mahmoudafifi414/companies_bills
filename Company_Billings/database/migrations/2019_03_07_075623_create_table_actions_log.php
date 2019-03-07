@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateTableActionsLog extends Migration
 {
@@ -15,6 +15,10 @@ class CreateTableActionsLog extends Migration
     {
         Schema::create('actions_log', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('table_name');
+            $table->string('action');
+            $table->string('details')->nullable();
+            $table->tinyInteger('user');
             $table->timestamps();
         });
     }
