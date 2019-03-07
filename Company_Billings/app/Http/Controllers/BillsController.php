@@ -137,7 +137,7 @@ class BillsController extends Controller
         try {
             Bill::destroy($id);
         } catch (\Exception $exception) {
-            return response()->json(['msg' => $exception, 'status' => 500], 500);
+            return response()->json(['msg' => 'error happened', 'status' => 500], 500);
         }
         return response()->json(['msg' => 'Bill Deleted', 'id' => $id, 'status' => 200], 200);
 
