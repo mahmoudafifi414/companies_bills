@@ -37,7 +37,6 @@ class EditBill extends Component {
 
     render() {
         const {currentBillData} = this.props.CompanyReducer;
-        console.log(currentBillData);
         if (typeof currentBillData.data !== 'undefined') {
             return (
                 <Modal

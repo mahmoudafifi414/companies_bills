@@ -27,8 +27,7 @@ export default function (state = initialState, action) {
     switch (action.type) {
         case ADD_COMPANY_BILLS:
             return {
-                ...state,
-                companies: action.payload.message,
+                ...state
             };
         case SET_COMPANY_FEE:
             return {

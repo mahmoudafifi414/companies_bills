@@ -7,8 +7,9 @@ import {
     INCREASE_BILLS,
     SET_AMOUNT,
     SET_COMPANY_FEE,
+    UPDATE_BILL_DATA,
     UPDATE_BILLS,
-    UPDATE_BILL_DATA
+    ADD_COMPANY_BILLS
 } from './types';
 
 export const setFee = (fee) => dispatch => {
@@ -42,13 +43,11 @@ export const updateBills = (bills) => dispatch => {
     })
 };
 export const saveCompanyWithBills = (formData) => dispatch => {
-    axios.post('http://127.0.0.1:8000/api/companies', formData).then(res => {
-            console.log(res)
-        }
-        /*dispatch({
+    axios.post('http://127.0.0.1:8000/api/companies', formData).then(res =>
+        dispatch({
             type: ADD_COMPANY_BILLS,
             payload: res.data.users
-        })*/
+        })
     )
 };
 export const getBillsOfCompanies = (numberPerPage) => dispatch => {

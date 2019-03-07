@@ -31,8 +31,11 @@ class TableView extends Component {
 
     handleShowEdit = (e) => {
         e.preventDefault();
-        this.setState({showEdit: true});
         this.props.getBillData(e.target.id);
+        setTimeout(() => {
+            this.setState({showEdit: true});
+        }, 500)
+
     };
 
     handleHideEdit = () => {
