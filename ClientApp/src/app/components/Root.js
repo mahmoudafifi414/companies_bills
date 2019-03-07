@@ -3,7 +3,6 @@ import {render} from "react-dom"
 import {BrowserRouter, Route} from 'react-router-dom'
 import {connect} from 'react-redux'
 import TableView from "./TableView";
-import {AddCompanies} from "./AddCompanies";
 
 class Root extends Component {
     render() {
@@ -11,8 +10,7 @@ class Root extends Component {
             <BrowserRouter>
                 <div className="container-fluid">
                     <div className="row">
-                        <Route path="/bills" component={TableView}/>
-                        <Route path="/AddCompanies" component={AddCompanies}/>
+                        <Route path="/" component={TableView}/>
                     </div>
                 </div>
             </BrowserRouter>
