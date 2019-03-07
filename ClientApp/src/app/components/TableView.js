@@ -28,40 +28,48 @@ class TableView extends Component {
     componentDidMount() {
         this.getBillsOfCompanies()
     }
-
+    //function to handle show edit view of bill
     handleShowEdit = (e) => {
         e.preventDefault();
+        //get bill data we want to edit it
         this.props.getBillData(e.target.id);
         setTimeout(() => {
             this.setState({showEdit: true});
         }, 500)
 
     };
-
+    //handle hide of modal of edit
     handleHideEdit = () => {
         this.setState({showEdit: false});
+        //update bills array cause there is update may be taken
         this.getBillsOfCompanies();
     };
+    //function to handle show of add company and bills modal
     handleShowAdd = (e) => {
         e.preventDefault();
         this.setState({showAdd: true});
     };
-
+    //handle hide of add company with bills modal
     handleHideAdd = () => {
         this.setState({showAdd: false});
+        //update bills array cause there is update may be taken
         this.getBillsOfCompanies();
     };
+    //get bills
     getBillsOfCompanies = (e) => {
         this.props.getBillsOfCompanies(typeof e !== 'undefined' ? e.target.value : null);
     };
+    //filter bills based on year and month
     filterBillsOfCompanies = (e) => {
         e.preventDefault();
+        //if there is tear to search with or month
         if (e.target.id == 'year') {
             this.setState({year: e.target.value});
         } else if (e.target.id == 'month') {
             this.setState({month: e.target.value});
         }
         let that = this;
+        //search with given date
         setTimeout(function () {
             const filterData = {
                 year: that.state.year,
@@ -71,18 +79,22 @@ class TableView extends Component {
         }, 1);
 
     };
+    //function to filter bills of companies in search
     filterBillsOfCompaniesInSearch = (e) => {
         e.preventDefault();
         const filterData = {
             searchText: e.target.value
         };
+        //take search and filter
         this.props.filterBillsOfCompanies(filterData)
     };
+    //update pagination data if there is new page to go to in pagination
     updatePaginationData = e => {
         e.preventDefault();
         const urlLinkForApi = this.props.CompanyReducer.billsOfTheCompanies.first_page_url.split("?");
         this.props.updatePaginationData(urlLinkForApi[0], e.target.text)
     };
+    //delete bill
     deleteBill = (e) => {
         e.preventDefault();
         const billId = e.target.id;

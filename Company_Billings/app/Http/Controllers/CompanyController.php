@@ -34,13 +34,16 @@ class CompanyController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
+    //function to store companies with bills on ot
     public function store(Request $request)
     {
+        //create new company instance
         $companyInstance = new Company;
         $companyInstance->name = $request->companyName;
         $companyInstance->referenceNr = $request->companyNumber;
         $companyInstance->street = $request->companyAddress;
         $companyInstance->fee = $request->companyFee;
+        //make transactions to save company and bills on it
         try {
             DB::transaction(function () use ($companyInstance, $request) {
                 $companyInstance->save();

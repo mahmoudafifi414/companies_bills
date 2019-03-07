@@ -12,16 +12,19 @@ class EditBill extends Component {
             amount: ''
         }
     }
-
+    //function to set date to save it in further edit operation
     setDate = (e) => {
         this.setState({date: e.target.value})
     };
+    //function to set bill number to save it in further edit operation
     setBillNumber = (e) => {
         this.setState({billNumber: e.target.value})
     };
+    //function to set amount to save it in further edit operation
     setAmount = (e) => {
         this.setState({amount: e.target.value})
     };
+    //update opertion of bill
     updateBill = e => {
         e.preventDefault();
         const {currentBillData} = this.props.CompanyReducer;
@@ -30,6 +33,7 @@ class EditBill extends Component {
             billNumber: this.state.billNumber.length > 0 ? this.state.billNumber : null,
             amount: this.state.amount.length > 0 ? this.state.amount : null
         };
+        //call update function in actions
         this.props.updateBillData(currentBillData.data.id, dataToUpdate);
         alert('Updated Successfully');
 

@@ -9,9 +9,10 @@ class Bills extends Component {
             bills: []
         }
     }
-
+   //function of add new bills in bills array to save them in further operation
     modifyBill = (e) => {
         e.preventDefault();
+        //get input and split it to get id and name of field to be set in object
         const inputId = e.target.id.split('_');
         const {bills} = this.props.CompanyReducer;
         const {maxAmount} = this.props.CompanyReducer;
@@ -19,14 +20,16 @@ class Bills extends Component {
             if (inputId[1] == bill.id) {
                 bill[inputId[0]] = e.target.value;
                 if (inputId[0] == 'amount') {
+                    //make percent calculation to get bill amount compared by all amount
                     bill['amountPercent'] = (e.target.value * 100) / maxAmount;
                 }
                 return;
             }
         });
+        //update bills array in state in reducer
         this.props.updateBills(bills);
     };
-
+   //function of delete bill in add company view
     removeBill = (e) => {
         e.preventDefault();
         this.props.reduceCounter(e.target.id)

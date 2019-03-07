@@ -12,8 +12,11 @@ class BillsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    //this is the function to git bills in the companies and make use of pagination of it with number
     public function getBillsOfCompanies($numberPerPage = 10)
     {
+        //get bills with companies relation
         $bills = Bill::with(array('companies' => function ($query) {
             $query->select('id', 'name', 'referenceNr');
         }))->select('id', 'date', 'amount', 'company_ID')
@@ -21,12 +24,15 @@ class BillsController extends Controller
         return response()->json(['bills' => $bills], 200);
     }
 
+    //this is the function to filter bills of companies with search input or all or date
     public function filterBillsOfCompanies(Request $request)
     {
+        //check if the search input is supplied and not empty
         $searchQuery = '';
         if (isset($request->searchText) and $request->searchText != '') {
             $searchQuery = '%' . $request->searchText . '%';
         }
+        //get the bills with companies
         $bills = Bill::with(array('companies' => function ($query) use ($request, $searchQuery) {
             if (strlen($searchQuery) > 0) {
                 $query->select('id', 'name', 'referenceNr')->where('name', 'like', $searchQuery);
@@ -34,12 +40,15 @@ class BillsController extends Controller
                 $query->select('id', 'name', 'referenceNr');
             }
         }))->select('id', 'date', 'amount', 'company_ID');
+        //if there is year in filter so filter the year of bills
         if (isset($request->year) and $request->year != '') {
             $bills = $bills->whereYear('date', '=', $request->year);
         }
+        //if there is year in filter so filter the month of bills
         if (isset($request->month) and $request->month != '') {
             $bills = $bills->whereMonth('date', '=', $request->month);
         }
+        //order the bills and get them
         $bills = $bills->orderBy('id', 'desc')->paginate(10);
         return response()->json(['bills' => $bills], 200);
     }
@@ -65,6 +74,7 @@ class BillsController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
+    //function to store bills
     public static function store($bills, $companyId)
     {
         foreach ($bills as $bill) {
@@ -95,8 +105,10 @@ class BillsController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
+    //function to get data of bill to edit it
     public function edit($id)
     {
+        //get bill data
         try {
             $billData = Bill::select('id', 'date', 'amount', 'billNumber')->find($id);
         } catch (\Exception $exception) {
@@ -112,8 +124,10 @@ class BillsController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
+    //function to update the bill
     public function update(Request $request, $id)
     {
+        //get data and update the data which is not null
         try {
             $bill = Bill::find($id);
             $request->amount != null ? $bill->amount = $request->amount : $bill->amount;
@@ -132,6 +146,7 @@ class BillsController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
+    //function to delete bill
     public function destroy($id)
     {
         try {

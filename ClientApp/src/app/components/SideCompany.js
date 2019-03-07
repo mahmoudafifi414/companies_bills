@@ -19,7 +19,7 @@ class SideCompany extends Component {
             inputNames: []
         }
     }
-
+    //function to set company name
     setCompanyName = (e) => {
         e.preventDefault();
         const companyName = e.target.value;
@@ -28,6 +28,7 @@ class SideCompany extends Component {
             companyName: companyName
         });
     };
+    //function to set company number
     setCompanyNumber = (e) => {
         e.preventDefault();
         const companyNum = e.target.value;
@@ -36,6 +37,7 @@ class SideCompany extends Component {
             companyNumber: companyNum
         });
     };
+    //function to set company address
     setCompanyAddress = (e) => {
         e.preventDefault();
         const companyAddress = e.target.value;
@@ -44,6 +46,7 @@ class SideCompany extends Component {
             companyAddress: companyAddress
         });
     };
+    //function to set company amount
     setAmount = (e) => {
         e.preventDefault();
         const amount = e.target.value;
@@ -58,6 +61,7 @@ class SideCompany extends Component {
         });
         this.props.setAmount(amount);
     };
+    //function to control show and hide of save operation
     enableDisabledSubmitAddBill = (inputName, inputValue, inputNum) => {
         if (this.state.inputNames.length < 4 && !this.state.inputNames.includes(inputName)) {
             this.state.inputNames.push(inputName);
@@ -69,6 +73,7 @@ class SideCompany extends Component {
             this.state.disableAddBillAndSubmit = true;
         }
     };
+    //calculate fee based on amount
     calculateFeeBasedOnAmount = (e) => {
         e.preventDefault();
         if (e.target.value > 100 || e.target.value < 0) {
@@ -80,18 +85,21 @@ class SideCompany extends Component {
         this.setState({feeInNumbers: feeInNumbers});
         this.props.setAmount(maxAmount);
     };
+    //increase counter of bills of we click add bill
     increaseCounter = (e) => {
         e.preventDefault();
         const newCounter = this.state.counter + 1;
         this.setState({counter: newCounter});
         this.props.increaseCounter(newCounter);
     };
+    //submit for of comany and its bills
     submitForm = (e) => {
         e.preventDefault();
         const {bills} = this.props.CompanyReducer;
         const sumAmountOfBills = bills.reduce((total, obj) => {
             return total + obj['amountPercent']
         }, 0);
+        //if percent is 100 % then can not proceed
         if (sumAmountOfBills > 100) {
             alert('Can not save because bills amount is greater than max amount');
             return
